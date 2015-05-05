@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="war" build-on-make="true" name="musicApps:war">
+    <output-path>$PROJECT_DIR$/target</output-path>
+    <root id="archive" name="musicApps.war">
+      <element id="artifact" artifact-name="musicApps:war exploded" />
+    </root>
+  </artifact>
+</component>

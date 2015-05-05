@@ -1,0 +1,62 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context" xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd">
+
+    <context:component-scan base-package="com.springapp.mvc"/>
+    <mvc:annotation-driven />
+    <mvc:resources mapping="/images/**" location="pages/images/" />
+    <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+        <property name="prefix" value="/WEB-INF/pages/"/>
+        <property name="suffix" value=".jsp"/>
+    </bean>
+    <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+        <property name="prefix" value="/WEB-INF/pages/"/>
+        <property name="suffix" value=".jsp"/>
+    </bean>
+
+    <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource">
+        <property name="driverClassName" value="com.mysql.jdbc.Driver"/>
+        <property name="url" value="jdbc:mysql://localhost:3306/musics"/>
+        <property name="username" value="root"/>
+        <property name="password" value="1995"/>
+        <property name="validationQuery" value="SELECT 1"/>
+    </bean>
+
+    <bean id="sessionFactory" class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
+        <property name="dataSource" ref="dataSource"/>
+        <property name="packagesToScan" value="com.springapp.mvc.domain"/>
+        <property name="hibernateProperties">
+            <props>
+                <prop key="hibernate.dialect">org.hibernate.dialect.MySQLDialect</prop>
+                <prop key="hibernate.show_sql">true</prop>
+            </props>
+        </property>
+    </bean>
+
+    <bean id="transactionManager" class="org.springframework.orm.hibernate4.HibernateTransactionManager">
+        <property name="sessionFactory" ref="sessionFactory"/>
+    </bean>
+
+    <tx:annotation-driven transaction-manager="transactionManager"/>
+    <bean id="personDao" class="com.springapp.mvc.dao.PersonDaoImpl"/>
+    <bean id="personService" class="com.springapp.mvc.service.PersonServiceImpl"/>
+    <bean id="musicDao" class="com.springapp.mvc.dao.MusicDaoImpl"/>
+    <bean id="musicService" class="com.springapp.mvc.service.MusicServiceImpl"/>
+    <bean id="personMusicDao" class="com.springapp.mvc.dao.PersonMusicDaoImpl"/>
+    <bean id="personMusicService" class="com.springapp.mvc.service.PersonMusicServiceImpl"/>
+    <bean id="personPlaylistDao" class="com.springapp.mvc.dao.PersonPlaylistDaoImpl"/>
+    <bean id="pesonPlaylistService" class="com.springapp.mvc.service.PersonPlaylistServiceImpl"/>
+    <bean id="playlistDao" class="com.springapp.mvc.dao.PlaylistDaoImpl"/>
+    <bean id="playlistService" class="com.springapp.mvc.service.PlaylistServiceImpl"/>
+    <bean id="playlistMusicDao" class="com.springapp.mvc.dao.PlaylistMusicDaoImpl"/>
+    <bean id="playlistMusicService" class="com.springapp.mvc.service.PlaylistMusicServiceImpl"/>
+    <bean id="musiclikedpersonDao" class="com.springapp.mvc.dao.MusiclikespersonDaoImpl"/>
+    <bean id="playlistlikedpersonDao" class="com.springapp.mvc.dao.PlaylistlikedpersonDaoImpl"/>
+    <bean id="personPlaylistService" class="com.springapp.mvc.service.PersonPlaylistServiceImpl"/>
+    <bean id="musiclikedpersonService" class="com.springapp.mvc.service.MusiclikedPersonServiceImpl"/>
+    <bean id="playlistlikedPersonService" class="com.springapp.mvc.service.PlaylistlikedPersonServiceImpl"/>
+</beans>

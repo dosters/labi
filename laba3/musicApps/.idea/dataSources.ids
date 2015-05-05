@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component name="dataSourceStorage">
+  <data-source name="MySQL - musics@localhost" uuid="b4590466-5d4d-4717-8c45-c43aad3320ae">
+    <database-info product="MySQL" version="5.5.25" jdbc-version="4.0" driver-name="MySQL Connector Java" driver-version="mysql-connector-java-5.1.34 ( Revision: jess.balint@oracle.com-20141014163213-wqbwpf1ok2kvo1om )">
+      <extra-name-characters>#@</extra-name-characters>
+      <identifier-quote-string>`</identifier-quote-string>
+    </database-info>
+    <case-sensitivity plain-identifiers="lower" quoted-identifiers="lower"/>
+    <schema name="" catalog="musics"/>
+    <table name="music" schema="" catalog="musics" type="TABLE">
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="likes" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="name" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12"/>
+      <column name="scr" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12"/>
+      <primary-key name="PRIMARY" columns="id"/>
+      <exported-key name="personmusic_ibfk_1" table="personmusic" schema="" catalog="musics" columns="idMusic"/>
+      <exported-key name="playlistmusic_ibfk_1" table="playlistmusic" schema="" catalog="musics" columns="idMusic"/>
+    </table>
+    <table name="musiclikedperson" schema="" catalog="musics" type="TABLE">
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="idPerson" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="idMusic" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <primary-key name="PRIMARY" columns="id"/>
+      <index name="idMusic" unique="false" columns="idMusic"/>
+      <index name="idPerson" unique="false" columns="idPerson,idMusic"/>
+      <index name="idPerson_2" unique="false" columns="idPerson"/>
+    </table>
+    <table name="person" schema="" catalog="musics" type="TABLE">
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="lastname" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12"/>
+      <column name="name" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12"/>
+      <primary-key name="PRIMARY" columns="id"/>
+      <exported-key name="personmusic_ibfk_2" table="personmusic" schema="" catalog="musics" columns="idPerson"/>
+      <exported-key name="personplaylist_ibfk_1" table="personplaylist" schema="" catalog="musics" columns="idPerson"/>
+      <exported-key name="playlistlikedperson_ibfk_2" table="playlistlikedperson" schema="" catalog="musics" columns="idPerson"/>
+      <index name="lastname" unique="false" columns="lastname,name"/>
+    </table>
+    <table name="personmusic" schema="" catalog="musics" type="TABLE">
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="idMusic" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="idPerson" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <primary-key name="PRIMARY" columns="id"/>
+      <foreign-key name="personmusic_ibfk_1" columns="idMusic" ref-table="music" ref-schema="" ref-catalog="musics" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
+      <foreign-key name="personmusic_ibfk_2" columns="idPerson" ref-table="person" ref-schema="" ref-catalog="musics" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
+      <index name="idMusic" unique="false" columns="idPerson"/>
+      <index name="idMusic_2" unique="false" columns="idMusic"/>
+    </table>
+    <table name="personplaylist" schema="" catalog="musics" type="TABLE">
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="idPerson" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="idPlaylist" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <primary-key name="PRIMARY" columns="id"/>
+      <foreign-key name="personplaylist_ibfk_1" columns="idPerson" ref-table="person" ref-schema="" ref-catalog="musics" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
+      <foreign-key name="personplaylist_ibfk_2" columns="idPlaylist" ref-table="playlist" ref-schema="" ref-catalog="musics" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
+      <index name="idPerson" unique="false" columns="idPlaylist"/>
+      <index name="idPerson_2" unique="false" columns="idPerson"/>
+    </table>
+    <table name="playlist" schema="" catalog="musics" type="TABLE">
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="name" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12"/>
+      <column name="likes" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <primary-key name="PRIMARY" columns="id"/>
+      <exported-key name="personplaylist_ibfk_2" table="personplaylist" schema="" catalog="musics" columns="idPlaylist"/>
+      <exported-key name="playlistlikedperson_ibfk_1" table="playlistlikedperson" schema="" catalog="musics" columns="idPlaylist"/>
+      <exported-key name="playlistmusic_ibfk_2" table="playlistmusic" schema="" catalog="musics" columns="idPlaylist"/>
+    </table>
+    <table name="playlistlikedperson" schema="" catalog="musics" type="TABLE">
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="idPlaylist" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="idPerson" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <primary-key name="PRIMARY" columns="id"/>
+      <foreign-key name="playlistlikedperson_ibfk_1" columns="idPlaylist" ref-table="playlist" ref-schema="" ref-catalog="musics" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
+      <foreign-key name="playlistlikedperson_ibfk_2" columns="idPerson" ref-table="person" ref-schema="" ref-catalog="musics" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
+      <index name="idPlaylist" unique="false" columns="idPerson"/>
+    </table>
+    <table name="playlistmusic" schema="" catalog="musics" type="TABLE">
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="idMusic" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="idPlaylist" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <primary-key name="PRIMARY" columns="id"/>
+      <foreign-key name="playlistmusic_ibfk_1" columns="idMusic" ref-table="music" ref-schema="" ref-catalog="musics" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
+      <foreign-key name="playlistmusic_ibfk_2" columns="idPlaylist" ref-table="playlist" ref-schema="" ref-catalog="musics" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
+      <index name="idMusic" unique="false" columns="idPlaylist"/>
+    </table>
+  </data-source>
+</component>
